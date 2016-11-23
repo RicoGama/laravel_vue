@@ -1,0 +1,11 @@
+/node_modules
+/public/storage
+/vendor
+/.idea
+Homestead.json
+Homestead.yaml
+.env
+.phpstorm.meta.php
+_ide_helper.php
+config/ide-helper.php
+resources/assets/spa/js/config.js
