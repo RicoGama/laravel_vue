@@ -21,6 +21,9 @@
         "barryvdh/laravel-ide-helper": "^2.2"
     },
     "autoload": {
+        "files": [
+            "app/helpers.php"
+        ],
         "classmap": [
             "database"
         ],
