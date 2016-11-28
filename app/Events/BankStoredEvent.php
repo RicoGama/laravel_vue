@@ -39,15 +39,4 @@ class BankStoredEvent
     {
         return $this->logo;
     }
-
-    /**
-     * Handle the event
-     *
-     * @param BankStoredEvent $event
-     * @return void
-     */
-    public function handle(BankStoredEvent $event)
-    {
-
-    }
 }
