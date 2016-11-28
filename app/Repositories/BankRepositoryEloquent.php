@@ -2,11 +2,10 @@
 
 namespace CodeFin\Repositories;
 
+use CodeFin\Events\BankStoredEvent;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use CodeFin\Repositories\BankRepository;
 use CodeFin\Models\Bank;
-use CodeFin\Validators\BankValidator;
 
 /**
  * Class BankRepositoryEloquent
@@ -14,6 +13,18 @@ use CodeFin\Validators\BankValidator;
  */
 class BankRepositoryEloquent extends BaseRepository implements BankRepository
 {
+    public function create(array $attributes)
+    {
+        $logo = $attributes['logo'];
+        $attributes['logo'] = "semimagem.jpeg";
+        $model = parent::create($attributes);
+        $event = new BankStoredEvent($model, $logo);
+        event($event);
+
+        return $model;
+    }
+
+
     /**
      * Specify Model class name
      *
