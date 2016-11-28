@@ -7,7 +7,7 @@
             {!! Form::open(['route' => 'admin.banks.store']) !!}
                 @include('admin.banks._form')
                 <div class="row">
-                    {!! Form::submit('Salvar banco', ['class' => 'btn waves-effect']) !!}
+                    {!! Form::submit('Salvar banco', ['class' => 'btn waves-effect right']) !!}
                 </div>
             {!! Form::close() !!}
         </div>
