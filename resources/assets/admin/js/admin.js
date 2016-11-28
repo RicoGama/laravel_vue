@@ -14,16 +14,9 @@ require('./bootstrap');
 
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('admin-menu', require('./components/AdminMenu.vue'));
+Vue.component('delete-action', require('./components/DeleteAction.vue'));
+Vue.component('modal', require('../../_default/components/Modal.vue'));
 
 const app = new Vue({
-    el: '#app',
-    methods: {
-        deleteBank(id){
-            this.$http.delete('/admin/banks/' + id).then((response) => {
-                if (response.data.deleted) {
-                    Materialize.toast('Banco deletado', 3000);
-                }
-            });
-        }
-    },
+    el: '#app'
 });
