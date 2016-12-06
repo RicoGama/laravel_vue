@@ -29,11 +29,10 @@ $factory->state(\CodeFin\Models\User::class, 'admin', function (Faker\Generator 
     ];
 });
 
-$factory->state(\CodeFin\Models\BankAccount::class, 'admin', function (Faker\Generator $faker) {
+$factory->define(\CodeFin\Models\BankAccount::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->city,
-        'email' => rand(10000, 60000).'-'.rand(0, 9),
-        'password' => rand(70000, 260000).'-'.rand(0, 9),
-        'remember_token' => str_random(10),
+        'agency' => rand(10000, 60000).'-'.rand(0, 9),
+        'account' => rand(70000, 260000).'-'.rand(0, 9),
     ];
 });
