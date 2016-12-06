@@ -22,11 +22,12 @@ class BankAccountsTableSeeder extends Seeder
                 $bank = $banks->random();
                 $bankAccount->bank_id = $bank->id;
 
+                $bankAccount->save();
+
                 if ($bankAccountId == $bankAccount->id) {
                     $bankAccount->default = 1;
+                    $bankAccount->save();
                 }
-
-                $bankAccount->save();
             });
     }
 }
