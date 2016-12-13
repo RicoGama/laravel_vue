@@ -52,6 +52,11 @@
             setCurrentPage(page) {
                 this.currentPage = page;
             }
+        },
+        watch: {
+            currentPage(newValue) {
+                this.$dispatch('pagination::changed', newValue);
+            }
         }
     };
 </script>
