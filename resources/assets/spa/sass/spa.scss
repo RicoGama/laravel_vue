@@ -10,3 +10,18 @@
 
 // Materialize
 @import "node_modules/materialize-css/sass/materialize";
+
+body {
+  background-color: color('green', 'lighten-5');
+}
+
+.spinner {
+  @extend .progress;
+  margin: 0px;
+}
+
+.spinner-fixed {
+  width: 100%;
+  position: fixed;
+  z-index: 998;
+}

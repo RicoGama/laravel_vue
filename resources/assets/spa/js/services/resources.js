@@ -1,7 +1,8 @@
 export class Jwt {
     static accessToken(email, password) {
         return Vue.http.post('access_token', {
-            email : email, password: password
+            email : email,
+            password: password
         })
     }
 
@@ -15,5 +16,6 @@ export class Jwt {
 }
 
 let User = Vue.resource('user');
+let BankAccount = Vue.resource('bank_accounts');
 
-export {User};
+export {User, BankAccount};
