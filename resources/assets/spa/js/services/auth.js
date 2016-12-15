@@ -1,17 +1,17 @@
-import {Jwt} from './resources';
+import JwtToken from './jwt-token';
 import LocalStorage from './localStorage';
 import {User} from '../services/resources';
 
-const TOKEN = 'token';
 const USER = 'user';
+
 const afterLogin = (response) => {
-    User.get().then((response) => LocalStorage.setObject(USER, response.data));
+    User.get()
+        .then((response) => LocalStorage.setObject(USER, response.data));
 };
 
 export default {
     login(email, password) {
-        return Jwt.accessToken(email, password).then((response) => {
-            LocalStorage.set(TOKEN, response.data.token);
+        return JwtToken.accessToken(email, password).then((response) => {
             afterLogin(response);
             return response;
         });
@@ -21,27 +21,17 @@ export default {
             this.clearAuth();
         };
 
-        return Jwt.logout()
+        return JwtToken.revokeToken()
             .then(afterLogout())
             .catch(afterLogout());
-    },
-    refreshToken() {
-        return Jwt.refreshToken().then((response) => {
-            LocalStorage.set(TOKEN, response.data.token);
-            return response;
-        });
-    },
-    getAutorizationHeader(){
-        return `Bearer ${LocalStorage.get(TOKEN)}`
     },
     user(){
         return LocalStorage.getObject(USER);
     },
     check() {
-        return LocalStorage.get(TOKEN) ? true : false;
+        return JwtToken.token ? true : false;
     },
     clearAuth() {
-        LocalStorage.remove(TOKEN);
         LocalStorage.remove(USER);
     }
 }
