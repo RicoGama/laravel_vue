@@ -21,8 +21,9 @@
     </div>
 </template>
 <script type="text/javascript">
-    import MenuComponent from '../components/Menu.vue';
+    import MenuComponent from './Menu.vue';
     import Auth from '../services/auth';
+
     export default {
         components: {
             'menu': MenuComponent

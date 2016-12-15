@@ -1,29 +1,43 @@
 <template>
     <ul :id="o.id" class="dropdown-content" v-for="o in menusDropdown">
         <li v-for="item in o.items">
-            <a v-link="{ name: item.routeName }">{{ item.name }}</a>
+            <a v-link="{name: item.routeName}">{{ item.name }}</a>
+        </li>
+    </ul>
+    <ul id="dropdown-logout" class="dropdown-content">
+        <li>
+            <a v-link="{name: 'auth.logout'}">Sair</a>
         </li>
     </ul>
     <div class="navbar-fixed">
-        <nav class="green">
-            <div class="nav-wrapper container">
-                <a href="#" class="brand-logo right">Code Contas</a>
-                <a href="#" data-activates="nav-mobile" class="button-collapse">
-                    <i class="material-icons">menu</i>
-                </a>
-                <ul class="left hide-on-med-and-down">
-                    <li v-for="o in menus">
-                        <a v-if="o.dropdownId" class="dropdown-button" href="#" :data-activates="o.dropdownId">
-                            {{ o.name }} <i class="material-icons right">arrow_drop_down</i>
+        <nav>
+            <div class="nav-wrapper">
+                <div class="row">
+                    <div class="col s12">
+                        <a href="#" class="brand-logo left">Code Financeiro</a>
+                        <a href="#" data-activates="nav-mobile" class="button-collapse">
+                            <i class="material-icons">menu</i>
                         </a>
-                        <a v-else v-link="{name: o.routeName}">{{ o.name }}</a>
-                    </li>
-                </ul>
-                <ul id="nav-mobile" class="side-nav">
-                    <li v-for="o in menus">
-                        <a v-link="{ name: o.routeName }">{{ o.name }}</a>
-                    </li>
-                </ul>
+                        <ul class="right hide-on-med-and-down">
+                            <li v-for="o in menus">
+                                <a href="!#" v-if="o.dropdownId" class="dropdown-button" :data-activates="o.dropdownId">
+                                    {{ o.name }} <i class="material-icons right">arrow_drop_down</i>
+                                </a>
+                                <a v-else v-link="{name: o.url}">{{ o.name }}</a>
+                            </li>
+                            <li>
+                                <a href="!#" class="dropdown-button" data-activates="dropdown-logout">
+                                    {{ name }} <i class="material-icons right">arrow_drop_down</i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <ul id="nav-mobile" class="side-nav">
+                        <li v-for="o in menus">
+                            <a v-link="{name: o.url}">{{ o.name }}</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </div>
@@ -34,13 +48,22 @@
         data() {
             return {
                 menus: [
-                    {name: 'Conta bancária', routeName: 'bank-account.list'},
+                    {name: 'Contas a Pagar', dropdownId: 'teste'},
+                    {name: 'Contas a Pagar', routeName: 'auth.login'}
                 ],
-                menusDropdown: [],
+                menusDropdown: [
+                    {
+                        id: 'teste',
+                        items: [
+                            {name: 'Listar contas', routeName: 'auth.login'},
+                            {name: 'Criar contas', routeName: 'auth.login'},
+                        ]
+                    }
+                ],
                 user: Auth.user
             }
         },
-        computed:{
+        computed: {
             name() {
                 return this.user.data ? this.user.data.name : '';
             }
