@@ -7,7 +7,7 @@ export default {
         return LocalStorage.get(TOKEN);
     },
     set token(value) {
-        return value ? LocalStorage.set(TOKEN) : LocalStorage.remove(TOKEN);
+        return value ? LocalStorage.set(TOKEN, value) : LocalStorage.remove(TOKEN);
     },
     accessToken(email, password) {
         return Jwt.accessToken(email, password).then((response) => {
