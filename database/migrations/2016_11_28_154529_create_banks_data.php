@@ -27,7 +27,7 @@ class CreateBanksData extends Migration
      */
     public function down()
     {
-        //
+        $arr = Storage::disk('public')->deleteDirectory('banks/');
     }
 
     public function getData()
