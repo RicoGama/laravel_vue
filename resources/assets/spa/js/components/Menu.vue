@@ -23,7 +23,7 @@
                                 <a href="!#" v-if="o.dropdownId" class="dropdown-button" :data-activates="o.dropdownId">
                                     {{ o.name }} <i class="material-icons right">arrow_drop_down</i>
                                 </a>
-                                <a v-else v-link="{name: o.url}">{{ o.name }}</a>
+                                <a v-else v-link="{name: o.routeName}">{{ o.name }}</a>
                             </li>
                             <li>
                                 <a href="!#" class="dropdown-button" data-activates="dropdown-logout">
@@ -34,7 +34,7 @@
                     </div>
                     <ul id="nav-mobile" class="side-nav">
                         <li v-for="o in menus">
-                            <a v-link="{name: o.url}">{{ o.name }}</a>
+                            <a v-link="{name: o.routeName}">{{ o.name }}</a>
                         </li>
                     </ul>
                 </div>
@@ -48,18 +48,9 @@
         data() {
             return {
                 menus: [
-                    {name: 'Contas a Pagar', dropdownId: 'teste'},
-                    {name: 'Contas a Pagar', routeName: 'auth.login'}
+                    {name: 'Conta Bancária', routeName: 'bank-account.list'},
                 ],
-                menusDropdown: [
-                    {
-                        id: 'teste',
-                        items: [
-                            {name: 'Listar contas', routeName: 'auth.login'},
-                            {name: 'Criar contas', routeName: 'auth.login'},
-                        ]
-                    }
-                ],
+                menusDropdown: [],
                 user: Auth.user
             }
         },
