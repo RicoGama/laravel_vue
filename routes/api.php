@@ -17,16 +17,13 @@ Route::group(['middleware' => 'cors', 'as' => 'api.'], function () {
     Route::post('/refresh_token', 'Api\AuthController@refreshToken')->name('refresh_token');
 
     Route::group(['middleware' => 'auth:api'], function (){
+        Route::resource('banks', 'Api\BanksController', ['only' => ['index']]);
         Route::resource('bank_accounts', 'Api\BankAccountsController', ['except' => ['create', 'edit']]);
-        Route::post('/logout', 'Api\AuthController@logout')
-            ->middleware('auth:api')->name('logout');
-        Route::get('/hello-world', function (Request $request) {
-            return response()->json(['message' => 'Hello World']);
-        })->middleware('auth:api');
+        Route::post('/logout', 'Api\AuthController@logout')->name('logout');
         Route::get('/user', function (Request $request) {
-            //$user = Auth::guard('api')->user();
-            $user = $request->user('api');
-            return $user;
-        })->middleware('auth:api')->name('user');
+            return $request->user('api');
+        })->name('user');
+
+
     });
 });

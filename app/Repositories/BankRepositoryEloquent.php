@@ -3,6 +3,7 @@
 namespace CodeFin\Repositories;
 
 use CodeFin\Events\BankStoredEvent;
+use CodeFin\Presenters\BankPresenter;
 use Illuminate\Http\UploadedFile;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -58,5 +59,10 @@ class BankRepositoryEloquent extends BaseRepository implements BankRepository
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+    }
+
+    public function presenter()
+    {
+        return BankPresenter::class;
     }
 }
