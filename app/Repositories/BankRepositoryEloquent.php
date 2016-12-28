@@ -19,11 +19,13 @@ class BankRepositoryEloquent extends BaseRepository implements BankRepository
     {
         $logo = $attributes['logo'];
         $attributes['logo'] = env('BANK_LOGO_DEFAULT');
+        $skipPresenter = $this->skipPresenter();
+        $this->skipPresenter(true);
         $model = parent::create($attributes);
         $event = new BankStoredEvent($model, $logo);
         event($event);
-
-        return $model;
+        $this->skipPresenter = $skipPresenter;
+        return $this->parserResult($model);
     }
 
     public function update(array $attributes, $id)
@@ -33,11 +35,14 @@ class BankRepositoryEloquent extends BaseRepository implements BankRepository
             $logo = $attributes['logo'];
             unset($attributes['logo']);
         }
+
+        $skipPresenter = $this->skipPresenter();
+        $this->skipPresenter(true);
         $model =  parent::update($attributes, $id);
         $event = new BankStoredEvent($model, $logo);
         event($event);
-
-        return $model;
+        $this->skipPresenter = $skipPresenter;
+        return $this->parserResult($model);
     }
 
 

@@ -27,7 +27,16 @@ class CreateBanksData extends Migration
      */
     public function down()
     {
-        $arr = Storage::disk('public')->deleteDirectory('banks/');
+        /** @var \CodeFin\Repositories\BankRepository $repository */
+        $repository = app(\CodeFin\Repositories\BankRepository::class);
+        $repository->skipPresenter(true);
+        $count = count($this->getData());
+        foreach (range(1, $count) as $value) {
+            $model = $repository->find($value);
+            $path = \CodeFin\Models\Bank::logosDir() . '/' . $model->logo;
+            \Storage::disk('public')->delete($path);
+            $model->delete();
+        }
     }
 
     public function getData()
