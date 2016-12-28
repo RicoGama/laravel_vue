@@ -29,7 +29,7 @@
                        <td>{{ o.agency }}</td>
                        <td>{{ o.account }}</td>
                        <td>
-                           <a v-link:="{ name: 'bank-account.update', params: {id: o.id} }">Editar</a> |
+                           <a v-link="{ name: 'bank-account.update', params: {id: o.id} }">Editar</a> |
                            <a href="#" @click.prevent="openModalDelete(o)">Excluir</a>
                        </td>
                    </tr>

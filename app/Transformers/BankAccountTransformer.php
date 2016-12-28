@@ -26,6 +26,7 @@ class BankAccountTransformer extends TransformerAbstract
             'agency' => $model->agency,
             'account' => $model->account,
             'default' => (bool) $model->default,
+            'bank_id' => (int) $model->bank_id,
             'created_at' => $model->created_at,
             'updated_at' => $model->updated_at
         ];
