@@ -27,6 +27,9 @@
                        <td>{{ o.agency }}</td>
                        <td>{{ o.account }}</td>
                        <td>
+                           <i class="material-icons green-text" v-if="o.default">check</i>
+                       </td>
+                       <td>
                            <a v-link="{ name: 'bank-account.update', params: {id: o.id} }">Editar</a> |
                            <a href="#" @click.prevent="openModalDelete(o)">Excluir</a>
                        </td>
@@ -100,7 +103,7 @@
                         },
                         name: {
                             label: 'Nome',
-                            width: '45%',
+                            width: '30%',
                         },
                         agency: {
                             label: 'Agência',
@@ -108,6 +111,10 @@
                         },
                         account: {
                             label: 'C/C',
+                            width: '15%'
+                        },
+                        'default': {
+                            label: 'Padrão',
                             width: '15%'
                         },
                     },
