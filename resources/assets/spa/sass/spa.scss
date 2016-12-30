@@ -11,6 +11,8 @@
 // Materialize
 @import "node_modules/materialize-css/sass/materialize";
 
+@import "../../_default/sass/default";
+
 body {
   background-color: color('green', 'lighten-5');
 }

@@ -8154,6 +8154,10 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   .picker--time .picker__box {
     margin-bottom: 5em; } }
 
+.bank-logo {
+  width: 22px;
+  height: 22px; }
+
 body {
   background-color: #E8F5E9; }
 

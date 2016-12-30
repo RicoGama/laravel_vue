@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <!-- <div class="container"> -->
        <div class="row">
            <page-title>
                <h5>Minhas contas Bancárias</h5>
@@ -27,6 +27,16 @@
                        <td>{{ o.agency }}</td>
                        <td>{{ o.account }}</td>
                        <td>
+                           <div class="row valign-wrapper">
+                               <div class="col s2">
+                                   <img :src="o.bank.data.logo" class="bank-logo">
+                               </div>
+                               <div class="col s10">
+                                   <span class="left">{{ o.bank.data.name }}</span>
+                               </div>
+                           </div>
+                       </td>
+                       <td>
                            <i class="material-icons green-text" v-if="o.default">check</i>
                        </td>
                        <td>
@@ -46,7 +56,7 @@
                </a>
            </div>
        </div>
-    </div>
+    <!-- </div> -->
     <modal :modal="modal">
         <div slot="content" v-if="bankAccountToDelete">
             <h4>Mensagem de confirmação</h4>
@@ -99,7 +109,7 @@
                     headers: {
                         id: {
                             label: '#',
-                            width: '10%'
+                            width: '7%'
                         },
                         name: {
                             label: 'Nome',
@@ -107,15 +117,19 @@
                         },
                         agency: {
                             label: 'Agência',
-                            width: '15%'
+                            width: '13%'
                         },
                         account: {
                             label: 'C/C',
-                            width: '15%'
+                            width: '13%'
+                        },
+                        'banks:bank_id|banks.name': {
+                            label: 'Banco',
+                            width: '17%'
                         },
                         'default': {
                             label: 'Padrão',
-                            width: '15%'
+                            width: '5%'
                         },
                     },
                 },
@@ -144,7 +158,8 @@
                     page: this.pagination.current_page + 1,
                     orderBy: this.order.key,
                     sortedBy: this.order.sort,
-                    search: this.search
+                    search: this.search,
+                    include: 'bank'
                 }).then((response) => {
                     this.bankAccounts = response.data.data;
                     let pagination = response.data.meta.pagination;
