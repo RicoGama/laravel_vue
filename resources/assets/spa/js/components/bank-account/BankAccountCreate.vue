@@ -1,65 +1,5 @@
-<template>
-    <div class="container">
-        <div class="row">
-            <div class="row">
-                <div class="col s6">
-                    <page-title>
-                        <h5>Nova conta bancária</h5>
-                    </page-title>
-                </div>
-                <div class="col s6">
-                    <page-title class="valign-wrapper">
-                        <div class="valign">
-                            <a v-link="{name: 'bank-account.list'}" class="waves-effect waves-light btn">
-                                <i class="material-icons">arrow_back</i>
-                            </a>
-                        </div>
-                    </page-title>
-                </div>
-            </div>
-            <div class="card-panel z-depth-5">
-                <form name="form" method="GET" @submit="submit()">
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <label class="active">Nome</label>
-                            <input type="text" v-model="bankAccount.name" placeholder="Digite o nome" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <label class="active">Banco:</label>
-                            <select v-model="bankAccount.bank_id" id="bank_id" class="browser-default">
-                                <option value="" disabled selected>Escolha um banco</option>
-                                <option v-for="o in banks" :value="o.id">{{ o.name }}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <label class="active">Agência</label>
-                            <input type="text" v-model="bankAccount.agency" placeholder="Digite a agência" />
-                        </div>
-                        <div class="input-field col s6">
-                            <label class="active">Conta Corrente</label>
-                            <input type="text" v-model="bankAccount.account" placeholder="Digite a conta corrente" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input type="checkbox" class="filled-in" v-model="bankAccount.default" id="account_default" />
-                            <label for="account_default">Padrão?</label>
-                        </div>
-                    </div>
-                    <div class="fixed-action-btn">
-                        <button type="submit" class="btn-floating btn-large">
-                            <i class="material-icons">save</i>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</template>
+<template src="./_form.html"></template>
+
 <script type="text/javascript">
     import {BankAccount, Bank} from '../../services/resources';
     import PageTitle from '../PageTitle.vue';
@@ -70,6 +10,7 @@
         },
         data() {
             return {
+                title: 'Nova conta bancária',
                 bankAccount: {
                     name: '',
                     agency: '',
