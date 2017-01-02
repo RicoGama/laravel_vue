@@ -20,5 +20,8 @@
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2",
     "webpack-merge": "^0.14.1"
+  },
+  "dependencies": {
+    "materialize-autocomplete": "^1.0.7"
   }
 }

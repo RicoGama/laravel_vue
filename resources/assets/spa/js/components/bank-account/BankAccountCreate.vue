@@ -3,6 +3,7 @@
 <script type="text/javascript">
     import {BankAccount, Bank} from '../../services/resources';
     import PageTitle from '../PageTitle.vue';
+    import 'materialize-autocomplete';
 
     export default {
         components: {
@@ -34,6 +35,24 @@
             getBanks() {
                 Bank.query().then((response) => {
                     this.banks = response.data.data;
+                    this.initAutocomplete();
+                });
+            },
+            initAutocomplete() {
+                let self = this;
+                $(document).ready(() => {
+                    $('#bank-id').materialize_autocomplete({
+                        limit: 10,
+                        multiple: {
+                            enabled: false
+                        },
+                        dropdown: {
+                            el: '#bank-id-dropdown'
+                        },
+                        getData: (value, callback) => {
+                            callback(value, self.banks);
+                        }
+                    });
                 });
             }
         }
