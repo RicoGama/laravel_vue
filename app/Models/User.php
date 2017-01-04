@@ -21,6 +21,11 @@ class User extends Authenticatable implements JWTSubject
         'name', 'email', 'password',
     ];
 
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *

@@ -36,3 +36,9 @@ $factory->define(\CodeFin\Models\BankAccount::class, function (Faker\Generator $
         'account' => rand(70000, 260000).'-'.rand(0, 9),
     ];
 });
+
+$factory->define(\CodeFin\Models\Client::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+    ];
+});
