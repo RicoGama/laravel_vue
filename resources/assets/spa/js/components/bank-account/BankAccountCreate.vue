@@ -20,6 +20,9 @@
                     bank_id: '',
                     'default': false,
                 },
+                bank: {
+                    name: ''
+                },
                 banks: []
             };
         },
