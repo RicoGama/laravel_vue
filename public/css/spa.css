@@ -8180,7 +8180,8 @@ body {
 
 .category-tree {
   border: none;
-  margin: 0; }
+  margin: 0;
+  overflow: visible; }
   .category-tree .category-child {
     padding-left: 50px; }
   .category-tree .category-symbol {
