@@ -27,7 +27,7 @@
     import CategoryTreeComponent from './CategoryTree.vue';
     import CategorySaveComponent from './CategorySave.vue';
     import {Category} from '../../services/resources';
-
+    import {CategoryFormat} from '../../services/category-nsm';
 
     export default {
         components: {
@@ -89,12 +89,7 @@
 
             },
             formatCategories() {
-                for (let category of this.categories) {
-                    this.categoriesFormatted.push({
-                        id: category.id,
-                        text: category.name
-                    });
-                }
+                this.categoriesFormatted = CategoryFormat.getCategoriesFormatted(this.categories);
             }
         },
         events: {

@@ -26,6 +26,7 @@ class CategoryTransformer extends TransformerAbstract
             'id'         => (int) $model->id,
             'name'       => $model->name,
             'parent_id'  => $model->parent_id,
+            'depth'      => $model->depth,
             'created_at' => $model->created_at,
             'updated_at' => $model->updated_at
         ];
@@ -33,8 +34,6 @@ class CategoryTransformer extends TransformerAbstract
 
     public function includeChildren(Category $model)
     {
-        if ($model->children) {
-            return $this->collection($model->children, new CategoryTransformer());
-        }
+        return $this->collection($model->children, new CategoryTransformer());
     }
 }
