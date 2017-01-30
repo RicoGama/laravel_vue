@@ -21,13 +21,18 @@
             $(this.$el)
                 .select2(this.options)
                 .on('change', function () {
-                    self.selected = this.value
+                    self.selected = this.value;
                 });
             $(this.$el).val(this.selected).trigger('change');
         },
         watch: {
             'options.data'(data) {
                 $(this.$el).select2(Object.assign({}, this.options, {data: data}));
+            },
+            'selected'(selected) {
+                if (selected != $(this.$el).val()) {
+                    $(this.$el).val(selected).trigger('change');
+                }
             }
         }
     }

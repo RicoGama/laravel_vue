@@ -25,6 +25,7 @@ class CategoryTransformer extends TransformerAbstract
         return [
             'id'         => (int) $model->id,
             'name'       => $model->name,
+            'parent_id'  => $model->parent_id,
             'created_at' => $model->created_at,
             'updated_at' => $model->updated_at
         ];
