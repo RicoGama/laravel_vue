@@ -12,6 +12,7 @@
 @import "node_modules/materialize-css/sass/materialize";
 
 @import "../../_default/sass/default";
+@import "../../_default/sass/select2-materialize";
 
 body {
   background-color: color('green', 'lighten-5');
