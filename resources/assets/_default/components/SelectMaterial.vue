@@ -12,8 +12,9 @@
                 required: true,
             },
             selected: {
-                type: [String, Number],
-                required: true
+                validator(value) {
+                    return typeof value == 'string' || typeof value == 'number' || value === null;
+                }
             }
         },
         ready() {
@@ -23,7 +24,7 @@
                 .on('change', function () {
                     self.selected = this.value;
                 });
-            $(this.$el).val(this.selected).trigger('change');
+            $(this.$el).val(this.selected !== null ? this.selected: 0).trigger('change');
         },
         watch: {
             'options.data'(data) {
@@ -31,7 +32,7 @@
             },
             'selected'(selected) {
                 if (selected != $(this.$el).val()) {
-                    $(this.$el).val(selected).trigger('change');
+                    $(this.$el).val(selected !== null ? this.selected: 0).trigger('change');
                 }
             }
         }
