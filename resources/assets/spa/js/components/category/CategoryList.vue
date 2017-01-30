@@ -4,6 +4,7 @@
             <h5>Administração de categorias</h5>
         </page-title>
         <div class="card-panel z-depth-5">
+            <select-material :options="options" :selected="selected"></select-material>
             <category-tree :categories="categories"></category-tree>
         </div>
 
@@ -24,11 +25,14 @@
     import CategoryTreeComponent from './CategoryTree.vue';
     import CategorySaveComponent from './CategorySave.vue';
     import {Category} from '../../services/resources';
+    import SelectMaterial from '../../../../_default/components/SelectMaterial.vue';
+
     export default {
         components: {
             'page-title': PageTitleComponent,
             'category-tree': CategoryTreeComponent,
-            'category-save': CategorySaveComponent
+            'category-save': CategorySaveComponent,
+            'select-material': SelectMaterial
         },
         data() {
             return {
@@ -41,7 +45,17 @@
                 title: 'Adicionar categoria',
                 modalOptionsSave: {
                     id: 'modal-category-save'
-                }
+                },
+                options: {
+                    data: [
+                        {id: 1, text: 'Valor 1'},
+                        {id: 2, text: 'Valor 2'},
+                        {id: 3, text: 'Valor 3'},
+                        {id: 4, text: 'Valor 4'},
+                        {id: 5, text: 'Valor 5'},
+                    ]
+                },
+                selected: 5,
             }
         },
         created() {
