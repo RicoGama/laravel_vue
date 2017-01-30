@@ -24,6 +24,11 @@
                     self.selected = this.value
                 });
             $(this.$el).val(this.selected).trigger('change');
+        },
+        watch: {
+            'options.data'(data) {
+                $(this.$el).select2(Object.assign({}, this.options, {data: data}));
+            }
         }
     }
 </script>

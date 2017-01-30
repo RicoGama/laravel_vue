@@ -14,8 +14,8 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
+                            <select-material :options="cpOptions" :selected.sync="category.parent_id"></select-material>
                             <label class="active">Categoria Pai</label>
-                            <input type="text" placeholder="Digite o nome"/>
                         </div>
                     </div>
                 </div>
@@ -29,10 +29,12 @@
 
 <script type="text/javascript">
     import ModalComponent from '../../../../_default/components/Modal.vue';
+    import SelectMaterialComponent from '../../../../_default/components/SelectMaterial.vue';
 
     export default {
         components: {
-            'modal': ModalComponent
+            'modal': ModalComponent,
+            'select-material': SelectMaterialComponent
         },
         props: {
             category: {
@@ -40,6 +42,10 @@
                 required: true
             },
             modalOptions: {
+                type: Object,
+                required: true
+            },
+            cpOptions: {
                 type: Object,
                 required: true
             }
