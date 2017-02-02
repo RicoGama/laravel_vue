@@ -16,7 +16,7 @@
                 <button type="submit" class="btn btn-flat waves-effects green lighten-2 modal-close modal-action">
                     OK
                 </button>
-                <a class="btn btn-flat waves-effects waves-red modal-close">Cancelar</a>
+                <button type="button" class="btn btn-flat waves-effects waves-red modal-close">Cancelar</button>
             </div>
         </category-save>
         <div class="fixed-action-btn">
@@ -85,7 +85,7 @@
             },
             saveCategory(){
                 CategoryService.save(this.categorySave, this.parent, this.categories, this.category).then(response => {
-                    if (this.categorySave === 0) {
+                    if (this.categorySave.id === 0) {
                         Materialize.toast('Categoria adicionada com sucesso', 4000);
                     } else {
                         Materialize.toast('Categoria alterada com sucesso', 4000);

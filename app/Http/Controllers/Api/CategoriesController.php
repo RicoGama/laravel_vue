@@ -77,7 +77,9 @@ class CategoriesController extends Controller
      */
     public function update(CategoryRequest $request, $id)
     {
-        $category = $this->repository->update($request->all(), $id);
+        $category = $this->repository->skipPresenter()->update($request->all(), $id);
+        $this->repository->skipPresenter(false);
+        $category = $this->repository->find($category->id);
         return response()->json($category);
     }
 

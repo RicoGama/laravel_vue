@@ -41,11 +41,13 @@ class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepos
             $this->skipPresenter(true);
             $child = $this->find($id);
             $child->parent_id = $attributes['parent_id'];
+            $child->fill($attributes);
             $child->save();
             $this->skipPresenter = $skipPresenter;
             $result = $this->parserResult($child);
         } else {
-            $result = parent::update($attributes);
+            $result = parent::update($attributes, $id);
+            $result->makeRoot()->save();
         }
         Category::$enableTenant = true;
         return $result;
