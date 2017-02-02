@@ -14,7 +14,7 @@
                         <a href="#" @click.prevent="categoryEdit(o)">Editar</a>
                     </li>
                     <li>
-                        <a href="#">Excluir</a>
+                        <a href="#" @click.prevent="categoryDelete(o)">Excluir</a>
                     </li>
                 </ul>
                 <span class="valign">{{{ categoryText(o) }}}</span>
@@ -68,6 +68,9 @@
             },
             categoryEdit(category) {
                 this.$dispatch('category-edit', category, this.parent);
+            },
+            categoryDelete(category) {
+                this.$dispatch('category-delete', category, this.parent);
             }
         }
     }
