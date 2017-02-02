@@ -16,7 +16,7 @@
                 <button type="submit" class="btn btn-flat waves-effects green lighten-2 modal-close modal-action">
                     OK
                 </button>
-                <button class="btn btn-flat waves-effects waves-red modal-close modal-action">Cancelar</button>
+                <a class="btn btn-flat waves-effects waves-red modal-close">Cancelar</a>
             </div>
         </category-save>
         <div class="fixed-action-btn">
@@ -98,8 +98,15 @@
                 this.parent = category;
                 $(`#${this.modalOptionsSave.id}`).modal('open');
             },
-            modalEdit(category) {
-
+            modalEdit(category, parent) {
+                this.title = 'Editar categoria';
+                this.categorySave = {
+                    id: category.id,
+                    name: category.name,
+                    parent_id: category.parent_id
+                };
+                this.parent = parent;
+                $(`#${this.modalOptionsSave.id}`).modal('open');
             },
             formatCategories() {
                 this.categoriesFormatted = CategoryFormat.getCategoriesFormatted(this.categories);
@@ -118,8 +125,8 @@
             'category-new'(category) {
                 this.modalNew(category);
             },
-            'category-edit'(category) {
-
+            'category-edit'(category, parent) {
+                this.modalEdit(category, parent);
             }
         }
     }
