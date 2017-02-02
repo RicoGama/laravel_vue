@@ -84,7 +84,8 @@
             },
             saveCategory(){
                 CategoryService.new(this.categorySave, this.parent, this.categories).then(response => {
-
+                    Materialize.toast('Categoria adicionada com sucesso', 4000);
+                    this.resetScope();
                 });
             },
             modalNew(category) {
@@ -92,7 +93,7 @@
                 this.categorySave = {
                     id: 0,
                     name: '',
-                    parent_id: category === null ? null : category.parent_id
+                    parent_id: category === null ? null : category.id
                 };
                 this.parent = category;
                 $(`#${this.modalOptionsSave.id}`).modal('open');
@@ -102,7 +103,16 @@
             },
             formatCategories() {
                 this.categoriesFormatted = CategoryFormat.getCategoriesFormatted(this.categories);
-            }
+            },
+            resetScope() {
+                this.categorySave = {
+                    id: 0,
+                    name: '',
+                    parent_id: 0
+                };
+                this.parent = null;
+                this.formatCategories();
+            },
         },
         events: {
             'category-new'(category) {
