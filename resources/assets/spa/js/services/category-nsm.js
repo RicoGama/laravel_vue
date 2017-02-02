@@ -8,6 +8,7 @@ export class CategoryFormat {
             level: 0,
             hasChildren: false
         });
+        return categoriesFormatted;
     }
 
     static _formatCategories(categories, categoryCollection = []) {
