@@ -9,15 +9,18 @@
                     </div>
                 </div>
             </div>
+            {{ user.name }}
         </div>
     </div>
 </template>
 
 <script>
-    import Auth from '../services/auth';
-    export default{
-        ready() {
-            //console.log(Auth.user());
+    import store from '../store';
+    export default {
+        computed: {
+            user() {
+                return store.state.user;
+            }
         }
     }
 </script>
