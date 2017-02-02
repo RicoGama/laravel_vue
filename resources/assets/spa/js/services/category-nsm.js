@@ -30,6 +30,14 @@ export class CategoryFormat {
 
 export class CategoryService {
 
+    static save(category, parent, categories, categoryOriginal) {
+        if(category.id === 0) {
+            return this.new(category, parent, categories);
+        } else {
+            return this.edit(category, parent, categories, categoryOriginal)
+        }
+    }
+
     static new(category, parent, categories) {
         let categoryCopy = $.extend(true, {}, category);
         if (categoryCopy.parent_id === null) {
@@ -86,6 +94,22 @@ export class CategoryService {
                     self._addChild(categoryUpdated, categories);
                     return response;
                 }
+            }
+
+            /**
+             * Alteração somente no nome da categoria
+             * Atualizar as informações na árvore
+             */
+            if (parent) {
+                let index = parent.children.data.findIndex(element => {
+                    return element.id == categoryUpdated.id;
+                });
+                parent.children.data.$set(index, categoryUpdated);
+            } else {
+                let index = categories.children.data.findIndex(element => {
+                    return element.id == categoryUpdated.id;
+                });
+                categories.$set(index, categoryUpdated);
             }
             return response;
         });
