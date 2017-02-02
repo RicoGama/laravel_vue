@@ -27,9 +27,10 @@ class CategoryRequest extends FormRequest
         $client = \Auth::guard('api')->user()->client;
         return [
             'name' => 'required|max:255',
-            'parent_id' => Rule::exists('categories', 'id')->where(function ($query) use ($client) {
-                $query->where('client_id', $client->id);
-            }),
+            'parent_id' => Rule::exists('categories', 'id')
+                ->where(function ($query) use ($client) {
+                    $query->where('client_id', $client->id);
+                }),
         ];
     }
 }

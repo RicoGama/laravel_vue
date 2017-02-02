@@ -19,6 +19,11 @@
                 <button class="btn btn-flat waves-effects waves-red modal-close modal-action">Cancelar</button>
             </div>
         </category-save>
+        <div class="fixed-action-btn">
+            <button class="btn-floating btn-large" @click="modalNew(null)">
+                <i class="large material-icons">add</i>
+            </button>
+        </div>
     </div>
 </template>
 
@@ -27,7 +32,7 @@
     import CategoryTreeComponent from './CategoryTree.vue';
     import CategorySaveComponent from './CategorySave.vue';
     import {Category} from '../../services/resources';
-    import {CategoryFormat} from '../../services/category-nsm';
+    import {CategoryFormat, CategoryService} from '../../services/category-nsm';
 
     export default {
         components: {
@@ -44,11 +49,11 @@
                     name: '',
                     parent_id: 0
                 },
-                title: 'Adicionar categoria',
+                parent: null,
+                title: '',
                 modalOptionsSave: {
                     id: 'modal-category-save'
-                },
-                selected: 5,
+                }
             }
         },
         computed: {
@@ -78,10 +83,18 @@
                 })
             },
             saveCategory(){
-                //console.log('teste');
+                CategoryService.new(this.categorySave, this.parent, this.categories).then(response => {
+
+                });
             },
             modalNew(category) {
-                this.categorySave = category;
+                this.title = 'Nova categoria';
+                this.categorySave = {
+                    id: 0,
+                    name: '',
+                    parent_id: category === null ? null : category.parent_id
+                };
+                this.parent = category;
                 $(`#${this.modalOptionsSave.id}`).modal('open');
             },
             modalEdit(category) {
