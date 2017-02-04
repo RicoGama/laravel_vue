@@ -1,5 +1,5 @@
 export default class {
-    constructor() {
+    constructor(include = null) {
         this.pagination = {
             current_page: 0,
             per_page: 0,
@@ -7,17 +7,10 @@ export default class {
         };
         this.search = '',
         this.order = {
-            get key() {
-                return this._key;
-            },
-            set key(key) {
-                this._key = key;
-                this.sort = this.sort == 'desc' ? 'asc' : 'desc';
-            },
             key: 'id',
             sort: 'asc',
         };
-        this.include = null;
+        this.include = include;
     }
 
     get pagination() {
@@ -34,7 +27,7 @@ export default class {
             page: this.pagination.current_page + 1,
             orderBy: this.order.key,
             sortedBy: this.order.sort,
-            serach: this.search
+            search: this.search
         };
 
         if (this.include) {

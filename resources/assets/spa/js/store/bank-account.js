@@ -1,8 +1,10 @@
 import {BankAccount} from '../services/resources';
+import searchOptions from '../services/search-options';
 
 const state = {
     bankAccounts: [],
     bankAccountDelete: null,
+    searchOptions: new searchOptions('bank'),
 };
 
 const mutations = {
@@ -14,23 +16,41 @@ const mutations = {
     },
     'delete'(state) {
         state.bankAccounts.$remove(state.bankAccountDelete);
+    },
+    setOrder(state, key) {
+        state.searchOptions.order.key = key;
+        let sort = state.searchOptions.order.sort;
+        state.searchOptions.order.sort = sort == 'desc' ? 'asc' : 'desc';
+    },
+    setPagination(state, pagination) {
+        state.searchOptions.pagination = pagination;
+    },
+    setCurrentPage(state, currentPage) {
+        state.searchOptions.pagination.current_page = currentPage;
+    },
+    setFilter(state, filter) {
+        state.searchOptions.search = filter;
     }
 };
 
 const actions = {
-    query(context, {pagination, order, search}) {
-        return BankAccount.query({
-            page: pagination.current_page + 1,
-            orderBy: order.key,
-            sortedBy: order.sort,
-            search: search,
-            include: 'bank'
-        }).then((response) => {
+    query(context) {
+        let searchOptions = context.state.searchOptions;
+        return BankAccount.query(searchOptions.createOptions()).then((response) => {
             context.commit('set', response.data.data);
-            let pagination_ = response.data.meta.pagination;
-            pagination_.current_page--;
-            pagination = pagination_;
+            context.commit('setPagination', response.data.meta.pagination);
         });
+    },
+    queryWithsortBy(context, key) {
+        context.commit('setOrder', key);
+        context.dispatch('query');
+    },
+    queryWithPagination(context, currentPage) {
+        context.commit('setCurrentPage', currentPage);
+        context.dispatch('query');
+    },
+    queryWithFilter(context) {
+        context.dispatch('query');
     },
 };
 
