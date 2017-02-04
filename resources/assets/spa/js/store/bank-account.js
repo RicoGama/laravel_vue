@@ -4,20 +4,10 @@ import searchOptions from '../services/search-options';
 const state = {
     bankAccounts: [],
     bankAccountDelete: null,
-    bankAccountSave: {
-        name: 'Rico',
-        agency: '',
-        account: '',
-        bank_id: '',
-        'default': false,
-    },
     searchOptions: new searchOptions('bank'),
 };
 
 const mutations = {
-    updateName(state, name) {
-        state.bankAccountSave.name = name;
-    },
     set(state, bankAccounts) {
         state.bankAccounts = bankAccounts;
     },

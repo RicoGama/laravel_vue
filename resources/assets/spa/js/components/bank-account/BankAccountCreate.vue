@@ -28,8 +28,8 @@
             };
         },
         computed: {
-            bankAccount() {
-                return store.state.bankAccount.bankAccountSave;
+            banks() {
+                return store.state.bank.banks;
             }
         },
         created() {
@@ -46,8 +46,7 @@
                 });
             },
             getBanks() {
-                Bank.query().then((response) => {
-                    this.banks = response.data.data;
+                store.dispatch('bank/query').then((response) => {
                     this.initAutocomplete();
                 });
             },
