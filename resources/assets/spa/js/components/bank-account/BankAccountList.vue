@@ -75,7 +75,6 @@
     </modal>
 </template>
 <script type="text/javascript">
-    import {BankAccount} from '../../services/resources';
     import ModalComponent from '../../../../_default/components/Modal.vue';
     import PaginationComponent from '../Pagination.vue';
     import PageTitleComponent from '../PageTitle.vue';

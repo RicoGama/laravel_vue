@@ -4,6 +4,7 @@
     import {BankAccount, Bank} from '../../services/resources';
     import PageTitle from '../PageTitle.vue';
     import 'materialize-autocomplete';
+    import store from '../../store/store';
     import _ from 'lodash';
 
     export default {
@@ -26,10 +27,18 @@
                 banks: []
             };
         },
+        computed: {
+            bankAccount() {
+                return store.state.bankAccount.bankAccountSave;
+            }
+        },
         created() {
             this.getBanks();
         },
         methods: {
+            updateName(event) {
+                store.commit('updateName', event.target.value);
+            },
             submit() {
                 BankAccount.save({}, this.bankAccount).then(() => {
                     Materialize.toast('Conta bancária criada com sucesso!', 4000);
