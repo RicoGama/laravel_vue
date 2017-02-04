@@ -21,7 +21,7 @@ export default {
                 return;
             }
             this._data = value;
-            LocalStorage.setObject(User, value);
+            LocalStorage.setObject(USER, value);
         },
         get data() {
             if(!this._data) {
