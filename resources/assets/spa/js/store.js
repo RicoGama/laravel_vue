@@ -10,7 +10,13 @@ const state = {
     check: JwtToken.token != null
 };
 
-export default new Vuex.Store({state});
+const mutations = {
+    setUser(state, user) {
+        state.user = user;
+    }
+};
+
+export default new Vuex.Store({state, mutations});
 
 /*const afterLogin = function (response) {
     this.user.check = true;

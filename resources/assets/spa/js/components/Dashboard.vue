@@ -9,6 +9,7 @@
                     </div>
                 </div>
             </div>
+            <button type="button" @click="updateUser">Atualizar Usuário</button>
             {{ user.name }}
         </div>
     </div>
@@ -20,6 +21,11 @@
         computed: {
             user() {
                 return store.state.user;
+            }
+        },
+        methods: {
+            updateUser() {
+                store.commit('setUser', {name: 'Luiz Carlos'});
             }
         }
     }
