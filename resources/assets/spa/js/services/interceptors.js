@@ -1,5 +1,5 @@
 import JwtToken from './jwt-token';
-import store from '../store';
+import store from '../store/store';
 import appConfig from './appConfig';
 Vue.http.interceptors.push((request, next) => {
     request.headers.set('Authorization', JwtToken.getAutorizationHeader());

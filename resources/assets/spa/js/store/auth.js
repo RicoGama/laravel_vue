@@ -1,7 +1,6 @@
-import JwtToken from './services/jwt-token';
-import LocalStorage from './services/localStorage';
-import {User} from './services/resources';
-import Vuex from 'vuex';
+import JwtToken from '../services/jwt-token';
+import LocalStorage from '../services/localStorage';
+import {User} from '../services/resources';
 
 const USER = 'user';
 
@@ -57,4 +56,7 @@ const actions = {
     }
 };
 
-export default new Vuex.Store({state, mutations, actions});
+const module = {
+    state, mutations, actions
+};
+export default module;

@@ -11,7 +11,7 @@
     </div>
 </template>
 <script type="text/javascript">
-    import store from '../store';
+    import store from '../store/store';
     export default {
         ready() {
             setTimeout(() => {
