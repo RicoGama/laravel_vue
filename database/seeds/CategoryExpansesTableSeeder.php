@@ -2,21 +2,17 @@
 
 use Illuminate\Database\Seeder;
 
-class CategoriesTableSeeder extends Seeder
+class CategoryExpansesTableSeeder extends Seeder
 {
     use \CodeFin\Repositories\GetClientsTrait;
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+
     public function run()
     {
         $clients = $this->getClients();
 
-        factory(\CodeFin\Models\Category::class, 30)
+        factory(\CodeFin\Models\CategoryExpense::class, 30)
             ->make()
-            ->each(function ($category) use ($clients) {
+            ->each(function($category) use ($clients){
                 $client = $clients->random();
                 $category->client_id = $client->id;
                 $category->save();
@@ -25,9 +21,9 @@ class CategoriesTableSeeder extends Seeder
         $categoriesRoot = $this->getCategoriesRoot();
 
         foreach ($categoriesRoot as $root) {
-            factory(\CodeFin\Models\Category::class, 3)
+            factory(\CodeFin\Models\CategoryExpense::class, 3)
                 ->make()
-                ->each(function ($child) use ($root) {
+                ->each(function($child) use ($root) {
                     $child->client_id = $root->client_id;
                     $child->save();
                     $child->parent()->associate($root);
@@ -38,8 +34,8 @@ class CategoriesTableSeeder extends Seeder
 
     private function getCategoriesRoot()
     {
-        /** @var \CodeFin\Repositories\CategoryRepository $repository */
-        $repository = app(\CodeFin\Repositories\CategoryRepository::class);
+        /** @var \CodeFin\Repositories\CategoryExpenseRepository $repository */
+        $repository = app(\CodeFin\Repositories\CategoryExpenseRepository::class);
         $repository->skipPresenter(true);
         return $repository->all();
     }

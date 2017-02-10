@@ -2,8 +2,8 @@
 
 namespace CodeFin\Transformers;
 
+use CodeFin\Models\AbstractCategory;
 use League\Fractal\TransformerAbstract;
-use CodeFin\Models\Category;
 
 /**
  * Class CategoryTransformer
@@ -20,7 +20,7 @@ class CategoryTransformer extends TransformerAbstract
      *
      * @return array
      */
-    public function transform(Category $model)
+    public function transform(AbstractCategory $model)
     {
         return [
             'id'         => (int) $model->id,
@@ -32,7 +32,7 @@ class CategoryTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeChildren(Category $model)
+    public function includeChildren(AbstractCategory $model)
     {
         $children = $model->children()->withDepth()->get();
         return $this->collection($children, new CategoryTransformer());
