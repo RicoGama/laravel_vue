@@ -136,7 +136,7 @@
                     return store.state.bankAccount.searchOptions.search;
                 },
                 set(value) {
-                    store.commit('setFilter', value);
+                    store.commit('bankAccount/setFilter', value);
                 }
             },
             bankAccountDelete() {
@@ -144,28 +144,28 @@
             }
         },
         created() {
-            store.dispatch('query');
+            store.dispatch('bankAccount/query');
         },
         methods: {
             destroy() {
-                store.dispatch('delete').then((response) => {
+                store.dispatch('bankAccount/delete').then((response) => {
                     Materialize.toast('Conta bancária excluída com sucesso!', 4000);
                 });
             },
             openModalDelete(bankAccount) {
-                store.commit('setDelete', bankAccount);
+                store.commit('bankAccount/setDelete', bankAccount);
                 $('#modal-delete').modal('open');
             },
             sortBy(key) {
-                store.dispatch('queryWithsortBy', key);
+                store.dispatch('bankAccount/queryWithsortBy', key);
             },
             filter() {
-                store.dispatch('queryWithFilter');
+                store.dispatch('bankAccount/queryWithFilter');
             }
         },
         events: {
             'pagination::changed'(page) {
-                store.dispatch('queryWithPagination', page);
+                store.dispatch('bankAccount/queryWithPagination', page);
             }
         }
     };
