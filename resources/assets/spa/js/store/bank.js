@@ -20,21 +20,17 @@ const actions = {
 };
 
 const getters = {
-    filterBankByName(state) {
-        return (name) => {
-            let banks = _.filter(state.banks, (o) => {
-                return _.contains(o.name.toLowerCase(), name.toLowerCase());
-            });
-            return banks;
-        }
+    filterBankByName: (state) => (name) => {
+        let banks = _.filter(state.banks, (o) => {
+            return _.contains(o.name.toLowerCase(), name.toLowerCase());
+        });
+        return banks;
     },
-    mapBanks(state, getters) {
-        return (name) => {
-            let banks = getters.filterBankByName(name);
-            return banks.map((o) => {
-                return {id: o.id, text: o.name};
-            });
-        }
+    mapBanks: (state, getters) => (name) => {
+        let banks = getters.filterBankByName(name);
+        return banks.map((o) => {
+            return {id: o.id, text: o.name};
+        });
     },
     banksLength(state) {
         return state.banks.length;
