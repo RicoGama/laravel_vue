@@ -2,13 +2,13 @@
 
 <script type="text/javascript">
     import {BankAccount, Bank} from '../../services/resources';
-    import PageTitle from '../PageTitle.vue';
+    import PageTitleComponent from '../PageTitle.vue';
     import 'materialize-autocomplete';
-    import _ from 'lodash';
+    import store from '../../store/store';
 
     export default {
         components: {
-            'page-title': PageTitle
+            'page-title': PageTitleComponent
         },
         data() {
             return {
@@ -22,9 +22,13 @@
                 },
                 bank: {
                     name: ''
-                },
-                banks: []
+                }
             };
+        },
+        computed: {
+            banks() {
+                return store.state.bank.banks;
+            }
         },
         created() {
             this.getBanks();
@@ -32,15 +36,13 @@
         },
         methods: {
             submit() {
-                let id = this.$route.params.id;
-                BankAccount.update({id: id}, this.bankAccount).then(() => {
-                    Materialize.toast('Conta bancária atualizada com sucesso!', 4000);
+                store.dispatch('bankAccount/save', this.bankAccount).then(() => {
+                    Materialize.toast('Conta bancária alterada com sucesso!', 4000);
                     this.$router.go({name: 'bank-account.list'});
                 });
             },
             getBanks() {
-                Bank.query().then((response) => {
-                    this.banks = response.data.data;
+                store.dispatch('bank/query').then((response) => {
                     this.initAutocomplete();
                 });
             },
@@ -56,10 +58,8 @@
                             el: '#bank-id-dropdown',
                         },
                         getData(value, callback) {
-                            let banks = self.filterBankByName(value);
-                            banks = banks.map((o) => {
-                                return {id: o.id, text: o.name};
-                            });
+                            let mapBanks = store.getters['bank/mapBanks'];
+                            let banks = mapBanks(value);
                             callback(value, banks);
                         },
                         onSelect(item) {
@@ -67,12 +67,6 @@
                         }
                     });
                 });
-            },
-            filterBankByName(name) {
-                let banks = _.filter(this.banks, (o) => {
-                    return _.contains(o.name.toLowerCase(), name.toLowerCase());
-                });
-                return banks;
             },
             getBankAccount(id) {
                 BankAccount.get({

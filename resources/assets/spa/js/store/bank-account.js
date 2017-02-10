@@ -1,10 +1,10 @@
 import {BankAccount} from '../services/resources';
-import searchOptions from '../services/search-options';
+import SearchOptions from '../services/search-options';
 
 const state = {
     bankAccounts: [],
     bankAccountDelete: null,
-    searchOptions: new searchOptions('bank'),
+    searchOptions: new SearchOptions('bank'),
 };
 
 const mutations = {
@@ -64,6 +64,11 @@ const actions = {
                 context.commit('setCurrentPage', pagination.current_page--);
             }
             return response;
+        });
+    },
+    save(context, bankAccount) {
+        BankAccount.save({}, bankAccount).then((response) => {
+           return response;
         });
     }
 };
