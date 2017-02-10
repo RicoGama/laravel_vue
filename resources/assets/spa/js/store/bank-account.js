@@ -41,7 +41,7 @@ const actions = {
             context.commit('setPagination', response.data.meta.pagination);
         });
     },
-    queryWithsortBy(context, key) {
+    queryWithSortBy(context, key) {
         context.commit('setOrder', key);
         context.dispatch('query');
     },

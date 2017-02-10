@@ -157,7 +157,7 @@
                 $('#modal-delete').modal('open');
             },
             sortBy(key) {
-                store.dispatch('bankAccount/queryWithsortBy', key);
+                store.dispatch('bankAccount/queryWithSortBy', key);
             },
             filter() {
                 store.dispatch('bankAccount/queryWithFilter');
