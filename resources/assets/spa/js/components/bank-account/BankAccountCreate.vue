@@ -5,7 +5,6 @@
     import PageTitle from '../PageTitle.vue';
     import 'materialize-autocomplete';
     import store from '../../store/store';
-    import _ from 'lodash';
 
     export default {
         components: {
@@ -62,10 +61,8 @@
                             el: '#bank-id-dropdown',
                         },
                         getData(value, callback) {
-                            let banks = self.filterBankByName(value);
-                            banks = banks.map((o) => {
-                                return {id: o.id, text: o.name};
-                            });
+                            let mapBanks = store.getters['bank/mapBanks'];
+                            let banks = mapBanks(value);
                             callback(value, banks);
                         },
                         onSelect(item) {
@@ -73,12 +70,6 @@
                         }
                     });
                 });
-            },
-            filterBankByName(name) {
-                let banks = _.filter(this.banks, (o) => {
-                    return _.contains(o.name.toLowerCase(), name.toLowerCase());
-                });
-                return banks;
             }
         }
     }
