@@ -40,6 +40,6 @@ class CategoryRequest extends FormRequest
         $currentAction = \Route::currentRouteAction();
         list($controller) = explode('@', $currentAction);
         return str_is("$controller*", CategoryRevenuesController::class)
-            ? "category_revenues":"category_expanses";
+            ? "category_revenues":"category_expenses";
     }
 }

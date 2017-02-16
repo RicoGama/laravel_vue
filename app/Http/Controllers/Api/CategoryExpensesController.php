@@ -6,7 +6,7 @@ use CodeFin\Criteria\WithDepthCategoriesCriteria;
 use CodeFin\Http\Controllers\Controller;
 use CodeFin\Repositories\CategoryExpenseRepository;
 
-class CategoryExpansesController extends Controller
+class CategoryExpensesController extends Controller
 {
     use CategoriesControllerTrait;
 
