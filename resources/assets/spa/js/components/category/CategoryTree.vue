@@ -53,7 +53,7 @@
         },
         methods: {
             dropdownId(category) {
-                return `category-tree-dropdown-${category.id}`;
+                return `category-tree-dropdown-${this._uid}-${category.id}`;
             },
             categorySymbolId(category) {
                 return `category-symbol-${this._uid}-${category.id}`;

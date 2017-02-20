@@ -92,7 +92,7 @@ export default {
             $(`#${this.modalOptionsSave.id}`).modal('open');
         },
         modalDelete(category, parent) {
-            store.commit(`${this.namespace()}/setDelete`, category);
+            store.commit(`${this.namespace()}/setCategory`, category);
             store.commit(`${this.namespace()}/setParent`, parent);
             $(`#${this.modalOptionsDelete.id}`).modal('open');
         },
