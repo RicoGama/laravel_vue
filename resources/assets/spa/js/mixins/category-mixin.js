@@ -1,7 +1,7 @@
 import CategoryTreeComponent from '../components/category/CategoryTree.vue';
 import CategorySaveComponent from '../components/category/CategorySave.vue';
-import {CategoryFormat} from '../services/category-nsm';
 import ModalComponent from '../../../_default/components/Modal.vue';
+import store from '../store/store';
 
 export default {
     components: {
@@ -11,16 +11,11 @@ export default {
     },
     data() {
         return {
-            categories: [],
-            categoriesFormatted: [],
             categorySave: {
                 id: 0,
                 name: '',
                 parent_id: 0
             },
-            categoryDelete: null,
-            category: null,
-            parent: null,
             title: ''
         }
     },
@@ -39,6 +34,15 @@ export default {
                 }
             }
         },
+        categories() {
+            return store.state[this.namespace()].categories;
+        },
+        categoriesFormatted() {
+            return store.getters[`${this.namespace()}/categoriesFormatted`];
+        },
+        categoryDelete() {
+            return store.state[this.namespace()].category;
+        },
         modalOptionsSave() {
             return {id: `modal-category-save-${this._uid}`};
         },
@@ -47,17 +51,11 @@ export default {
         },
     },
     created() {
-        this.getCategories();
+        store.dispatch(`${this.namespace()}/query`);
     },
     methods: {
-        getCategories() {
-            this.resource().query().then(response => {
-                this.categories = response.data.data;
-                this.formatCategories();
-            })
-        },
         saveCategory(){
-            this.resource().save(this.categorySave, this.parent, this.categories, this.category).then(response => {
+            store.dispatch(`${this.namespace()}/save`, this.categorySave).then(response => {
                 if (this.categorySave.id === 0) {
                     Materialize.toast('Categoria adicionada com sucesso', 4000);
                 } else {
@@ -67,10 +65,9 @@ export default {
             });
         },
         destroy(){
-            this.resource().destroy(this.categoryDelete, this.parent, this.categories)
+            store.dispatch(`${this.namespace()}/delete`, this.categorySave)
                 .then(response => {
                     Materialize.toast('Categoria excluída com sucesso', 4000);
-                    this.resetScope();
                 });
         },
         modalNew(category) {
@@ -80,7 +77,7 @@ export default {
                 name: '',
                 parent_id: category === null ? null : category.id
             };
-            this.parent = category;
+            store.commit(`${this.namespace()}/setParent`, category);
             $(`#${this.modalOptionsSave.id}`).modal('open');
         },
         modalEdit(category, parent) {
@@ -90,17 +87,14 @@ export default {
                 name: category.name,
                 parent_id: category.parent_id
             };
-            this.category = category;
-            this.parent = parent;
+            store.commit(`${this.namespace()}/setCategory`, category);
+            store.commit(`${this.namespace()}/setParent`, parent);
             $(`#${this.modalOptionsSave.id}`).modal('open');
         },
         modalDelete(category, parent) {
-            this.categoryDelete = category;
-            this.parent = parent;
+            store.commit(`${this.namespace()}/setDelete`, category);
+            store.commit(`${this.namespace()}/setParent`, parent);
             $(`#${this.modalOptionsDelete.id}`).modal('open');
-        },
-        formatCategories() {
-            this.categoriesFormatted = CategoryFormat.getCategoriesFormatted(this.categories);
         },
         resetScope() {
             this.categorySave = {
@@ -108,10 +102,6 @@ export default {
                 name: '',
                 parent_id: 0
             };
-            this.categoryDelete = null;
-            this.category = null;
-            this.parent = null;
-            this.formatCategories();
         },
     },
     events: {

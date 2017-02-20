@@ -1,5 +1,19 @@
 import {CategoryRevenue, CategoryExpense} from '../services/resources';
 
+const formatCategories = (categories, categoryCollection = []) => {
+    for (let category of categories) {
+        let categoryNew = {
+            id: category.id,
+            text: category.name,
+            level: category.depth,
+            hasChildren: category.children.data.length > 0
+        };
+        categoryCollection.push(categoryNew);
+        formatCategories(category.children.data, categoryCollection);
+    }
+    return categoryCollection;
+}
+
 const findParent = (id, categories) => {
     let result = null;
     for (let category of categories) {
@@ -148,10 +162,24 @@ const actions = {
     }
 };
 
+const getters = {
+    categoriesFormatted(state) {
+        let categoriesFormatted = formatCategories(state.categories);
+        categoriesFormatted.unshift({
+            id: 0,
+            text: 'Nenhuma categoria',
+            level: 0,
+            hasChildren: false
+        });
+        return categoriesFormatted;
+    }
+}
+
 const module = {
     namespaced: true,
     state,
     mutations,
-    actions
+    actions,
+    getters
 };
 export default module;
