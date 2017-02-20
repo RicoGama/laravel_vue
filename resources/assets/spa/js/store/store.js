@@ -3,11 +3,17 @@ import auth from './auth';
 import bankAccount from './bank-account';
 import bank from './bank';
 import categoryModule from './category';
+import billModule from './bill';
+
 import {CategoryRevenue, CategoryExpense} from '../services/resources';
+import {BillPay} from '../services/resources';
 
 let categoryRevenue= categoryModule(), categoryExpense = categoryModule();
 categoryRevenue.state.resource = CategoryRevenue;
 categoryExpense.state.resource = CategoryExpense;
+
+let billPay = billModule();
+billPay.state.resource = BillPay;
 
 export default new Vuex.Store({
     modules: {
@@ -15,6 +21,7 @@ export default new Vuex.Store({
         bankAccount,
         bank,
         categoryRevenue,
-        categoryExpense
+        categoryExpense,
+        billPay
     }
 });

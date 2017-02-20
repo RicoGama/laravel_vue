@@ -67,7 +67,7 @@ const actions = {
         });
     },
     save(context, bankAccount) {
-        BankAccount.save({}, bankAccount).then((response) => {
+        return BankAccount.save({}, bankAccount).then((response) => {
            return response;
         });
     }
