@@ -31,9 +31,6 @@ const mutations = {
     set(state, categories) {
         state.categories = categories;
     },
-    setDelete(state, category) {
-        state.category = category;
-    },
     add(state) {
         if (state.category.parent_id === null) {
             state.categories.push(state.category);
@@ -41,7 +38,7 @@ const mutations = {
             state.parent.children.data.push(state.category);
         }
     },
-    edit(state) {
+    edit(state, categoryUpdated) {
         if (state.category.parent_id === null) {
             /**
              * Categoria alterada, está sem pai
@@ -49,7 +46,7 @@ const mutations = {
              */
             if (state.parent) {
                 state.parent.children.data.$remove(state.category);
-                state.categories.push(state.category);
+                state.categories.push(categoryUpdated);
                 return;
             }
         } else {
@@ -62,7 +59,7 @@ const mutations = {
                  */
                 if (state.parent.id != state.category.parent_id) {
                     state.parent.children.data.$remove(state.category);
-                    addChild(state.category, state.categories);
+                    addChild(categoryUpdated, state.categories);
                     return;
                 }
             } else {
@@ -71,7 +68,7 @@ const mutations = {
                  * Antes a categoria era um pai
                  */
                 state.categories.$remove(state.category);
-                addChild(state.category, state.categories);
+                addChild(categoryUpdated, state.categories);
                 return;
             }
         }
@@ -84,12 +81,12 @@ const mutations = {
             let index = state.parent.children.data.findIndex(element => {
                 return element.id == state.category.id;
             });
-            state.parent.children.data.$set(index, state.category);
+            state.parent.children.data.$set(index, categoryUpdated);
         } else {
             let index = state.categories.children.data.findIndex(element => {
                 return element.id == state.category.id;
             });
-            state.categories.$set(index, state.category);
+            state.categories.$set(index, categoryUpdated);
         }
     },
     'delete'(state) {
@@ -112,29 +109,41 @@ const mutations = {
 
 const actions = {
     query(context) {
-        let searchOptions = context.state.searchOptions;
-        return BankAccount.query(searchOptions.createOptions()).then((response) => {
+        return context.state.resource.query().then((response) => {
             context.commit('set', response.data.data);
-            context.commit('setPagination', response.data.meta.pagination);
-        });
-    },
-    'delete'(context) {
-        let id = context.state.bankAccountDelete.id;
-        return BankAccount.delete({id: id}).then((response) => {
-            context.commit('delete');
-            context.commit('setDelete', null);
-
-            let bankAccounts = context.state.bankAccounts;
-            let pagination = context.state.searchOptions.pagination;
-            if (bankAccounts.length === 0 && pagination.current_page > 0) {
-                context.commit('setCurrentPage', pagination.current_page--);
-            }
             return response;
         });
     },
-    save(context, bankAccount) {
-        BankAccount.save({}, bankAccount).then((response) => {
-           return response;
+    'delete'(context) {
+        let id = context.state.category.id;
+        return context.state.resource.delete({id: id}).then((response) => {
+            context.commit('delete');
+            context.commit('setCategory', null);
+            return response;
+        });
+    },
+    save(context, category) {
+        let categoryCopy = $.extend(true, {}, category);
+        if (categoryCopy.parent_id === null) {
+            delete categoryCopy.parent_id;
+        }
+        if(category.id === 0) {
+            return context.dispatch('new', categoryCopy);
+        } else {
+            return context.dispatch('edit', categoryCopy);
+        }
+    },
+    'new'(context, category) {
+        return context.state.resource.save(category).then(response => {
+            context.commit('setCategory', category);
+            context.commit('add');
+            return response;
+        });
+    },
+    edit(context, category) {
+        return this.resource.update({id: category.id}, category).then(response => {
+            context.commit('edit', response.data.data);
+            return response;
         });
     }
 };

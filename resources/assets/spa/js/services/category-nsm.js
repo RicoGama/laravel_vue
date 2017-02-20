@@ -63,6 +63,7 @@ export class CategoryService {
         if (categoryCopy.parent_id === null) {
             delete categoryCopy.parent_id;
         }
+
         let self = this;
         return this.resource.update({id: categoryCopy.id}, categoryCopy).then(response => {
             let categoryUpdated = response.data.data;
