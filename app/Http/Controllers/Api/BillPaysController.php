@@ -1,7 +1,8 @@
 <?php
 
-namespace CodeFin\Http\Controllers;
+namespace CodeFin\Http\Controllers\Api;
 
+use CodeFin\Http\Controllers\Controller;
 use CodeFin\Repositories\BillPayRepository;
 use CodeFin\Http\Requests\BillPayRequest;
 use Illuminate\Http\Request;
@@ -65,7 +66,7 @@ class BillPaysController extends Controller
      * @param string $id
      * @return \Illuminate\Http\Response
      */
-    public function update(BillPayRequest $request)
+    public function update(BillPayRequest $request, $id)
     {
         $billPay = $this->repository->update($request->all(), $id);
         return response()->json($billPay);
