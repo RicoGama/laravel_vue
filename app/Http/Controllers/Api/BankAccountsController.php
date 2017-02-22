@@ -27,7 +27,7 @@ class BankAccountsController extends Controller
 
     public function lists()
     {
-        return $bankAccounts = $this->repository->all(['id', 'name', 'account']);
+        return $bankAccounts = $this->repository->skipPresenter()->all(['id', 'name', 'account']);
     }
 
     /**
