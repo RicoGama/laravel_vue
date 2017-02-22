@@ -25,6 +25,11 @@ class BankAccountsController extends Controller
     }
 
 
+    public function lists()
+    {
+        return $bankAccounts = $this->repository->all(['id', 'name', 'account']);
+    }
+
     /**
      * Display a listing of the resource.
      *
