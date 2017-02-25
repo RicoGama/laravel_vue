@@ -5,6 +5,9 @@
 
     export default {
         mixins: [billPayMixin],
+        ready() {
+            this.initSelect2();
+        },
         methods: {
             namespace() {
                 return 'billPay';
