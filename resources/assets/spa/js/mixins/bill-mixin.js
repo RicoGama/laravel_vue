@@ -1,11 +1,13 @@
 import PageTitleComponent from '../components/PageTitle.vue';
 import ModalComponent from '../../../_default/components/Modal.vue';
+import SelectMaterialComponent from '../../../_default/components/SelectMaterial.vue';
 import store from '../store/store';
 
 export default {
     components: {
         'page-title': PageTitleComponent,
-        'modal': ModalComponent
+        'modal': ModalComponent,
+        'select-material': SelectMaterialComponent
     },
     props: {
         index: {
@@ -26,13 +28,30 @@ export default {
                 name: '',
                 value: '',
                 done: false,
-                bank_account_id: 0
+                bank_account_id: 0,
+                category_id: 0
             }
         };
     },
     computed: {
+        cpOptions() {
+            return {
+                data: this.categoriesFormatted,
+                templateResult(category) {
+                    let margin = '&nbsp;'.repeat(category.level * 6);
+                    let text = category.hasChildren ? `<strong>${category.text}</strong>` : category.text;
+                    return `${margin}${text}`;
+                },
+                escapeMarkup(m) {
+                    return m;
+                }
+            }
+        },
         bankAccounts() {
             return store.state.bankAccount.lists;
+        },
+        categoriesFormatted() {
+            return store.getters[`${this.categoryNamespace()}/categoriesFormatted`]
         }
     },
     watch: {
@@ -95,7 +114,8 @@ export default {
                 name: '',
                 value: '',
                 done: false,
-                bank_account_id: 0
+                bank_account_id: 0,
+                category_id: 0
             }
         }
     }

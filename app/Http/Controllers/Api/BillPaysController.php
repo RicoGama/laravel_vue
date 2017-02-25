@@ -28,7 +28,7 @@ class BillPaysController extends Controller
      */
     public function index()
     {
-        $billPays = $this->repository->paginate(3);
+        $billPays = $this->repository->paginate();
 
         return $billPays;
     }
