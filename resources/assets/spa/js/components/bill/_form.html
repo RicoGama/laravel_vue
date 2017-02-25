@@ -26,7 +26,7 @@
                     </div>
                     <div class="input-field col s6">
                         <label class="active">Valor</label>
-                        <input type="text" v-model="bill.value" placeholder="R$ 0,00"/>
+                        <input type="text" v-model="bill.value | numberFormat" placeholder="R$ 0,00"/>
                     </div>
                 </div>
                 <div class="row">
