@@ -30,6 +30,9 @@ export default {
                 done: false,
                 bank_account_id: 0,
                 category_id: 0
+            },
+            bankAccount: {
+                name: '', text: ''
             }
         };
     },
@@ -71,8 +74,18 @@ export default {
         bankAccountDropdownId() {
             return `bank-account-dropdown-${this._uid}`;
         },
+        bankAccountHiddenId() {
+            return `bank-account-hidden-${this._uid}`;
+        },
         formId() {
             return `form-bill-${this._uid}`;
+        },
+        blurBankAccount($event) {
+            let el = $($event.target);
+            let text = this.bankAccount.text;
+            if (el.val() != text) {
+                el.val(text);
+            }
         },
         validateCategory() {
             let valid = this.$validator.validate('category_id', this.bill.category_id);
@@ -101,6 +114,9 @@ export default {
                 multiple: {
                     enabled: true
                 },
+                hidden: {
+                    el: `#${this.bankAccountHiddenId()}`,
+                },
                 dropdown: {
                     el: `#${this.bankAccountDropdownId()}`,
                 },
@@ -111,6 +127,8 @@ export default {
                 },
                 onSelect(item) {
                     self.bill.bank_account_id = item.id;
+                    self.bankAccount.text = item.text;
+                    self.bankAccount.account = item.account;
                 }
             });
         },
