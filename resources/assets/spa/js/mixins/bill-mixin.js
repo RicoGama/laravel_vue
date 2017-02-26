@@ -1,11 +1,9 @@
-import PageTitleComponent from '../components/PageTitle.vue';
 import ModalComponent from '../../../_default/components/Modal.vue';
 import SelectMaterialComponent from '../../../_default/components/SelectMaterial.vue';
 import store from '../store/store';
 
 export default {
     components: {
-        'page-title': PageTitleComponent,
         'modal': ModalComponent,
         'select-material': SelectMaterialComponent
     },
