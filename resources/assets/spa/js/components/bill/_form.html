@@ -33,7 +33,7 @@
                         <label :for="doneId()">Pago?</label>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" style="margin-bottom: 0;">
                     <div class="input-field col s6">
                         <input type="text" v-model="bill.name" id="name" name="name" placeholder="Nome da conta" class="validate"
                                v-validate data-vv-rules="required" :class="{'invalid' : errors.has('name')}"
@@ -49,6 +49,21 @@
                         <input type="hidden" name="bank_account_id" :id="bankAccountHiddenId()"
                                :value="bill.bank_account_id" v-validate data-vv-rules="required">
                         <ul :id="bankAccountDropdownId()" class="dropdown-content ac-dropdown"></ul>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 0;">
+                    <div class="input-field col s3">
+                        <input type="checkbox" v-model="repeat" class="filled-in" :id="repeatId()"/>
+                        <label :for="repeatId()">Repetir?</label>
+                    </div>
+                    <div class="input-field col s5">
+                        <select v-model="repeat_type" class="browser-default">
+                            <option value="1">Mensalmente</option>
+                            <option value="">Anualmente</option>
+                        </select>
+                    </div>
+                    <div class="input-field col s4">
+                        <input type="text" v-model="repeat_number" placeholder="Ocorrências"/>
                     </div>
                 </div>
             </div>
