@@ -16,7 +16,9 @@ class BillPay extends Model implements Transformable
         'date_due',
         'name',
         'value',
-        'done'
+        'done',
+        'bank_account_id',
+        'category_id'
     ];
 
 }

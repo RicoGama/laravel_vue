@@ -147,11 +147,13 @@ export default {
                             bill: self.bill,
                             index: self.index
                         }).then(() => {
+                            $(`#${this.modalOptions.id}`).modal('close');
                             Materialize.toast('Conta atualizada com sucesso!', 4000);
                             self.resetScope();
                         });
                     } else {
                         store.dispatch(`${this.namespace()}/save`, this.bill).then(() => {
+                            $(`#${this.modalOptions.id}`).modal('close');
                             Materialize.toast('Conta criada com sucesso!', 4000);
                             self.resetScope();
                         });
