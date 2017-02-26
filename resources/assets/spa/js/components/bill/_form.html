@@ -53,17 +53,17 @@
                 </div>
                 <div class="row" style="margin-bottom: 0;">
                     <div class="input-field col s3">
-                        <input type="checkbox" v-model="repeat" class="filled-in" :id="repeatId()"/>
+                        <input type="checkbox" v-model="bill.repeat" class="filled-in" :id="repeatId()"/>
                         <label :for="repeatId()">Repetir?</label>
                     </div>
-                    <div class="input-field col s5" v-if="repeat">
-                        <select v-model="repeat_type" class="browser-default">
+                    <div class="input-field col s5" v-if="bill.repeat">
+                        <select v-model="bill.repeat_type" class="browser-default">
                             <option value="1">Mensalmente</option>
                             <option value="">Anualmente</option>
                         </select>
                     </div>
-                    <div class="input-field col s4" v-if="repeat">
-                        <input type="number" v-model="repeat_number" placeholder="Ocorrências" @blur="blurRepeatNumber"/>
+                    <div class="input-field col s4" v-if="bill.repeat">
+                        <input type="number" v-model="bill.repeat_number" placeholder="Ocorrências" @blur="blurRepeatNumber"/>
                     </div>
                 </div>
             </div>
