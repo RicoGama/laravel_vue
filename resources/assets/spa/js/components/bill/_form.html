@@ -8,7 +8,7 @@
                         <select-material :options="cpOptions" :selected.sync="bill.category_id" v-validate
                                          data-vv-rules="required" data-vv-name="category_id"
                                          data-vv-as="categoria"
-                                         name="category_id"
+                                         name="category_id" data-vv-value-path="val"
                         ></select-material>
                         <label class="active" :data-error="errors.first('category_id')">Categoria de despesa</label>
                     </div>
@@ -69,7 +69,8 @@
             </div>
 
             <div slot="footer">
-                <button type="submit" class="btn btn-flat waves-effect green lighten-2 modal-close modal-action">
+                <button type="submit" class="btn btn-flat waves-effect green lighten-2"
+                        :disabled="fields.dirty() && errors.any()">
                     OK
                 </button>
                 <button type="button" class="btn btn-flat waves-effect waves-red modal-close modal-action">Cancelar

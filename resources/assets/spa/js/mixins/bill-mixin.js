@@ -148,20 +148,26 @@ export default {
             $(`#${this.bankAccountTextId()}`).parent().find('label').insertAfter(`#${this.bankAccountTextId()}`);
         },
         submit() {
-            if (this.bill.id !== 0) {
-                store.dispatch(`${this.namespace()}/edit`, {
-                    bill: this.bill,
-                    index: this.index
-                }).then(() => {
-                    Materialize.toast('Conta atualizada com sucesso!', 4000);
-                    this.resetScope();
-                });
-            } else {
-                store.dispatch(`${this.namespace()}/save`, this.bill).then(() => {
-                    Materialize.toast('Conta criada com sucesso!', 4000);
-                    this.resetScope();
-                });
-            }
+            let self = this;
+            this.validateCategory();
+            this.$validator.validateAll().then(success => {
+                if (success) {
+                    if (self.bill.id !== 0) {
+                        store.dispatch(`${self.namespace()}/edit`, {
+                            bill: self.bill,
+                            index: self.index
+                        }).then(() => {
+                            Materialize.toast('Conta atualizada com sucesso!', 4000);
+                            self.resetScope();
+                        });
+                    } else {
+                        store.dispatch(`${this.namespace()}/save`, this.bill).then(() => {
+                            Materialize.toast('Conta criada com sucesso!', 4000);
+                            self.resetScope();
+                        });
+                    }
+                }
+            });
         },
         resetScope() {
             this.bill = {
