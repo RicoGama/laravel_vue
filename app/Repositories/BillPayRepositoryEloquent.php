@@ -17,6 +17,10 @@ class BillPayRepositoryEloquent extends BaseRepository implements BillPayReposit
 {
     use BillRepositoryTrait;
 
+    protected $fieldSearchable = [
+        'name' => 'like'
+    ];
+
     public function create(array $attributes)
     {
         $model = parent::create($attributes);
