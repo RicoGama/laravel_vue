@@ -7,12 +7,13 @@
                 </page-title>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input type="text" :id="bankAccountTextId()" placeholder="Procure a conta bancária"
+                        <input type="text" :id="bankAccountTextId()" placeholder="Procure a conta bancária" class="validate"
                                autocomplete="off" :data-activates="bankAccountDropdownId()" data-beloworigin="true"
+                               :class="{'invalid' : errors.has('bank_account_id')}"
                                 @blur="blurBankAccount"/>
+                        <label class="active" :data-error="errors.first('bank_account_id')">Conta Bancária:</label>
                         <input type="hidden" name="bank_account_id" :id="bankAccountHiddenId()"
                                :value="bill.bank_account_id" v-validate data-vv-rules="required">
-                        <label class="active" :data-error="errors.first('bank_account_id')">Conta Bancária:</label>
                         <ul :id="bankAccountDropdownId()" class="dropdown-content ac-dropdown"></ul>
                     </div>
                 </div>
