@@ -56,14 +56,14 @@
                         <input type="checkbox" v-model="repeat" class="filled-in" :id="repeatId()"/>
                         <label :for="repeatId()">Repetir?</label>
                     </div>
-                    <div class="input-field col s5">
+                    <div class="input-field col s5" v-if="repeat">
                         <select v-model="repeat_type" class="browser-default">
                             <option value="1">Mensalmente</option>
                             <option value="">Anualmente</option>
                         </select>
                     </div>
-                    <div class="input-field col s4">
-                        <input type="text" v-model="repeat_number" placeholder="Ocorrências"/>
+                    <div class="input-field col s4" v-if="repeat">
+                        <input type="number" v-model="repeat_number" placeholder="Ocorrências" @blur="blurRepeatNumber"/>
                     </div>
                 </div>
             </div>
