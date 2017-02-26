@@ -2,11 +2,12 @@ import SearchOptions from '../services/search-options';
 
 export default () => {
 
+    const include = 'category,bankAccount';
     const state = {
         bills: [],
         billDelete: null,
         resource: null,
-        searchOptions: new SearchOptions(),
+        searchOptions: new SearchOptions(include),
     };
 
     const mutations = {
@@ -78,8 +79,8 @@ export default () => {
             });
         },
         edit(context, {index, bill}) {
-            return context.state.resource.update({id: bill.id}, bill.toJSON()).then((response) => {
-                context.commit('update', {index, bill});
+            return context.state.resource.update({id: bill.id, include: include}, bill.toJSON()).then((response) => {
+                context.commit('update', {index, bill: response.data.data});
                 return response;
             });
         }

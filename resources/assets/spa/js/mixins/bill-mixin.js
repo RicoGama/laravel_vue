@@ -142,27 +142,33 @@ export default {
             this.validateCategory();
             this.$validator.validateAll().then(success => {
                 if (success) {
-                    if (self.bill.id !== 0) {
-                        store.dispatch(`${self.namespace()}/edit`, {
-                            bill: self.bill,
-                            index: self.index
+                    if (this.bill.id !== 0) {
+                        store.dispatch(`${this.namespace()}/edit`, {
+                            bill: this.bill,
+                            index: this.index
                         }).then(() => {
-                            $(`#${this.modalOptions.id}`).modal('close');
-                            Materialize.toast('Conta atualizada com sucesso!', 4000);
-                            self.resetScope();
+                            this.successSave('Conta atualizada com sucesso!');
                         });
                     } else {
                         store.dispatch(`${this.namespace()}/save`, this.bill).then(() => {
-                            $(`#${this.modalOptions.id}`).modal('close');
-                            Materialize.toast('Conta criada com sucesso!', 4000);
-                            self.resetScope();
+                            this.successSave('Conta criada com sucesso!');
                         });
                     }
                 }
             });
         },
+        successSave(message) {
+            $(`#${this.modalOptions.id}`).modal('close');
+            Materialize.toast(message, 4000);
+            this.resetScope();
+        },
         resetScope() {
+            this.errors.clear();
+            this.fields.reset();
             this.bill.init();
+            this.bankAccount = {
+                text: ''
+            }
         }
     }
 }
