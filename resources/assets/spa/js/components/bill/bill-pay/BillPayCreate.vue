@@ -2,9 +2,10 @@
 
 <script type="text/javascript">
     import billPayMixin from '../../../mixins/bill-mixin';
+    import ValidatorOffRemoveMin from '../../../mixins/validator-off-remove-mixins';
 
     export default {
-        mixins: [billPayMixin],
+        mixins: [billPayMixin, ValidatorOffRemoveMin],
         ready() {
             this.initSelect2();
         },
