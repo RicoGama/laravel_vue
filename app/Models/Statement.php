@@ -20,4 +20,9 @@ class Statement extends Model implements Transformable
     {
         return $this->belongsTo(BankAccount::class);
     }
+
+    public function statementable()
+    {
+        return $this->morphTo();
+    }
 }
