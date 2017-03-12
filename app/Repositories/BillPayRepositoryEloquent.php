@@ -5,9 +5,7 @@ namespace CodeFin\Repositories;
 use CodeFin\Presenters\BillPayPresenter;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use CodeFin\Repositories\BillPayRepository;
 use CodeFin\Models\BillPay;
-use CodeFin\Validators\BillPayValidator;
 
 /**
  * Class BillPayRepositoryEloquent
@@ -20,13 +18,6 @@ class BillPayRepositoryEloquent extends BaseRepository implements BillPayReposit
     protected $fieldSearchable = [
         'name' => 'like'
     ];
-
-    public function create(array $attributes)
-    {
-        $model = parent::create($attributes);
-        $this->repeatBill($attributes);
-        return $model;
-    }
 
 
     /**

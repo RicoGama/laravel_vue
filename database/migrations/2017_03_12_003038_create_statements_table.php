@@ -19,7 +19,7 @@ class CreateStatementsTable extends Migration
             $table->float('balance');
             $table->integer('bank_account_id')->unsigned();
             $table->foreign('bank_account_id')->references('id')->on('bank_accounts');
-            $table->integer('client_id')->nullable()->unsigned();
+            $table->integer('client_id')->unsigned();
             $table->foreign('client_id')->references('id')->on('clients');
             $table->integer('statementable_id')->unsigned();
             $table->string('statementable_type');
