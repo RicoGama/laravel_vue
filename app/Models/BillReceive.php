@@ -1,13 +1,16 @@
 <?php
 
-namespace CodeFin\Models;
+namespace CodeFin;
 
+use CodeFin\Models\BankAccount;
+use CodeFin\Models\BillTrait;
+use CodeFin\Models\CategoryExpense;
+use CodeFin\Models\Statement;
 use HipsterJazzbo\Landlord\BelongsToTenants;
 use Illuminate\Database\Eloquent\Model;
-use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
-class BillPay extends Model implements Transformable, BillRepeatTypeInterface
+class BillReceive extends Model
 {
     use TransformableTrait;
     use BelongsToTenants;
