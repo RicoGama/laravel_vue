@@ -14,7 +14,7 @@ class AddCategoryToBillReceives extends Migration
     public function up()
     {
         Schema::table('bill_receives', function (Blueprint $table) {
-            $table->integer('cateogry_id')->unsigned();
+            $table->integer('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('category_revenues');
         });
     }
@@ -27,7 +27,7 @@ class AddCategoryToBillReceives extends Migration
     public function down()
     {
         Schema::table('bill_receives', function (Blueprint $table) {
-            $table->dropForeign('bill_receives_category_id_foreing');
+            $table->dropForeign('bill_receives_category_id_foreign');
             $table->dropColumn('category_id');
         });
     }

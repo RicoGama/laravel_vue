@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -13,14 +12,14 @@ class CreateBillReceivesTable extends Migration
      */
     public function up()
     {
-        Schema::table('bill_receives', function (Blueprint $table) {
+        Schema::create('bill_receives', function (Blueprint $table) {
             $table->increments('id');
             $table->date('date_due');
             $table->string('name');
             $table->float('value');
             $table->boolean('done')->default(false);
             $table->integer('client_id')->unsigned();
-            $table->foreing('client_id')->references('id')->on('clients');
+            $table->foreign('client_id')->references('id')->on('clients');
             $table->timestamps();
         });
     }

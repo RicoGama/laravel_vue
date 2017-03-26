@@ -3,7 +3,9 @@
 namespace CodeFin\Providers;
 
 use CodeFin\Events\BankStoredEvent;
+use CodeFin\Events\BillStoredEvent;
 use CodeFin\Listeners\BankAccountSetDefaultListener;
+use CodeFin\Listeners\BankAccountUpdateBalanceListener;
 use CodeFin\Listeners\BankLogoUploadListener;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -20,6 +22,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         BankStoredEvent::class => [
             BankLogoUploadListener::class
+        ],
+        BillStoredEvent::class => [
+            BankAccountUpdateBalanceListener::class
         ],
         RepositoryEntityCreated::class => [
             BankAccountSetDefaultListener::class

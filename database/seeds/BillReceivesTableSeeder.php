@@ -1,9 +1,10 @@
 <?php
 
-use CodeFin\Repositories\BillPayRepository;
+use CodeFin\Models\BillReceive;
+use CodeFin\Repositories\BillReceivesRepository;
 use Illuminate\Database\Seeder;
 
-class BillPaysTableSeeder extends Seeder
+class BillReceivesTableSeeder extends Seeder
 {
     use \CodeFin\Repositories\GetClientsTrait;
     /**
@@ -15,18 +16,18 @@ class BillPaysTableSeeder extends Seeder
     {
         $clients = $this->getClients();
 
-        $repository = app(BillPayRepository::class);
-        factory(\CodeFin\Models\BillPay::class, 200)
+        $repository = app(BillReceivesRepository::class);
+        factory(BillReceive::class, 200)
             ->make()
-            ->each(function ($billPay) use ($clients, $repository) {
+            ->each(function ($billReceives) use ($clients, $repository) {
                 $client = $clients->random();
                 \Landlord::addTenant($client);
                 $bankAccount = $client->bankAccounts->random();
                 $category = $client->categoryExpanses->random();
-                $billPay->client_id = $client->id;
-                $billPay->bank_account_id = $bankAccount->id;
-                $billPay->category_id = $category->id;
-                $data = $billPay->toArray();
+                $billReceives->client_id = $client->id;
+                $billReceives->bank_account_id = $bankAccount->id;
+                $billReceives->category_id = $category->id;
+                $data = $billReceives->toArray();
                 $repository->create($data);
             });
     }

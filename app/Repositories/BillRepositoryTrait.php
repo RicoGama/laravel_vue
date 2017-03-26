@@ -2,6 +2,8 @@
 
 namespace CodeFin\Repositories;
 
+use CodeFin\Events\BillStoredEvent;
+
 trait BillRepositoryTrait
 {
     public function create(array $attributes)

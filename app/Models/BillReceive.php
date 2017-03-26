@@ -1,16 +1,13 @@
 <?php
 
-namespace CodeFin;
+namespace CodeFin\Models;
 
-use CodeFin\Models\BankAccount;
-use CodeFin\Models\BillTrait;
-use CodeFin\Models\CategoryExpense;
-use CodeFin\Models\Statement;
 use HipsterJazzbo\Landlord\BelongsToTenants;
 use Illuminate\Database\Eloquent\Model;
+use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
-class BillReceive extends Model
+class BillReceive extends Model implements Transformable, BillRepeatTypeInterface
 {
     use TransformableTrait;
     use BelongsToTenants;
@@ -37,7 +34,7 @@ class BillReceive extends Model
 
     public function category()
     {
-        return $this->belongsTo(CategoryExpense::class);
+        return $this->belongsTo(CategoryRevenue::class);
     }
 
     public function statements()
