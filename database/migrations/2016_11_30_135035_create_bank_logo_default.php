@@ -14,7 +14,7 @@ class CreateBankLogoDefault extends Migration
     public function up()
     {
         $logo = new \Illuminate\Http\UploadedFile(
-            storage_path('app/files/banks/logos/logo_no_image.png'),
+            storage_path('app/public/banks/logos/logo_no_image.png'),
             'logo_no_image.png'
         );
         $name = env('BANK_LOGO_DEFAULT');

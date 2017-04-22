@@ -45,35 +45,35 @@ class CreateBanksData extends Migration
             [
                 'name' => 'Caixa',
                 'logo' => new \Illuminate\Http\UploadedFile(
-                    storage_path('app/files/banks/logos/caixa.png'),
+                    storage_path('app/public/banks/logos/caixa.png'),
                     'caixa.png'
                 )
             ],
             [
                 'name' => 'Bradesco',
                 'logo' => new \Illuminate\Http\UploadedFile(
-                    storage_path('app/files/banks/logos/bradesco.png'),
+                    storage_path('app/public/banks/logos/bradesco.png'),
                     'bradesco.png'
                 )
             ],
             [
                 'name' => 'Itaú',
                 'logo' => new \Illuminate\Http\UploadedFile(
-                    storage_path('app/files/banks/logos/itau.png'),
+                    storage_path('app/public/banks/logos/itau.png'),
                     'itau.png'
                 )
             ],
             [
                 'name' => 'Banco do Brasil',
                 'logo' => new \Illuminate\Http\UploadedFile(
-                    storage_path('app/files/banks/logos/banco-do-brasil.png'),
+                    storage_path('app/public/banks/logos/banco-do-brasil.png'),
                     'banco-do-brasil.png'
                 )
             ],
             [
                 'name' => 'Santander',
                 'logo' => new \Illuminate\Http\UploadedFile(
-                    storage_path('app/files/banks/logos/santander.png'),
+                    storage_path('app/public/banks/logos/santander.jpg'),
                     'santander.png'
                 )
             ]

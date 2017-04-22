@@ -29,11 +29,11 @@ class BillReceiveRequest extends FormRequest
             'name' => 'required|max:255',
             'value' => 'required|numeric',
             'done' => 'boolean',
-            'category_id' => Rule::exists('category_revenues', 'id')
+            'category_id' => \Rule::exists('category_revenues', 'id')
                 ->where(function ($query) use ($client) {
                     $query->where('client_id', $client->id);
                 }),
-            'bank_account_id' => Rule::exists('bank_accounts', 'id')
+            'bank_account_id' => \Rule::exists('bank_accounts', 'id')
                 ->where(function ($query) use ($client) {
                     $query->where('client_id', $client->id);
                 }),
